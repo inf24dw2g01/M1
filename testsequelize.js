@@ -5,5 +5,12 @@ const Order = require('./models/Order')
 const OrderItem = require('./models/OrderItem')
 
 
-sequelize.sync({ force: true }).then(async () => 
-    console.log("Database synced!"));
+//sequelize.sync({ force: true }).then(async () => 
+  //  console.log("Database synced!"));
+
+User.create({
+    name : "admin",
+    email : "admin@admin.com",
+    password: "admin",
+    role: "admin",
+})
