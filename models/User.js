@@ -20,6 +20,11 @@ const User = sequelize.define('User', {
     validate: {
       isIn: [['user', 'admin']]  // Only allow these values
     }
+  },
+  googleId: {
+    type: DataTypes.STRING,
+    unique: true,
+    allowNull: true
   }
   
 });
