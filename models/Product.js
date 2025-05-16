@@ -13,6 +13,11 @@ const Product = sequelize.define('Product', {
     type : DataTypes.FLOAT,
   },
 
+  id: {
+    type : DataTypes.STRING,
+    primaryKey : true,
+  },
+
 });
 
 module.exports = Product;
