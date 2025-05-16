@@ -13,6 +13,13 @@ const User = sequelize.define('User', {
   },
   password: {
     type: DataTypes.STRING,
+  },
+  role: {
+    type: DataTypes.STRING,
+    defaultValue: 'user',  // Default role is 'user', not 'admin'
+    validate: {
+      isIn: [['user', 'admin']]  // Only allow these values
+    }
   }
   
 });
