@@ -2,10 +2,12 @@ const express = require('express');
 const sequelize = require('./config/database');
 const app = express();
 
+app.use(express.json());
+
+app.use('/auth', require('./routes/authRoute'));
 
 app.use('/api-docs',require('./routes/docsRoute'))
 
-app.use(express.json());
 
 app.use('/products', require('./routes/productsRoute'));
 
