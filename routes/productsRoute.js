@@ -3,9 +3,9 @@ const productsController = require('../controllers/productsController');
 const { authenticate } = require('../middleware/auth');
 const { isAdmin }= require('../middleware/adminAuth')
 
-router.get('/', productsController.getAllProducts);
+router.get('/',authenticate, productsController.getAllProducts);
 
-router.get('/:id', productsController.getProductById);
+router.get('/:id',authenticate, productsController.getProductById);
 
 router.post('/', authenticate, isAdmin, productsController.createProduct);
 
