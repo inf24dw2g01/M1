@@ -23,8 +23,9 @@ app.use(passport.session());
 
 app.use('/auth', require('./routes/authRoute'));
 
-app.use('/api-docs',require('./routes/docsRoute'))
+app.use('/api-docs',require('./routes/docsRoute'));
 
+app.use('/orders', require('./routes/orderRoute'));
 
 app.use('/products', require('./routes/productsRoute'));
 

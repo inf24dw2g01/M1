@@ -13,3 +13,4 @@ const sequelize = new Sequelize('ShopDB',
 })
 
 module.exports = sequelize;
+

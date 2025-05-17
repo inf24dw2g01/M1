@@ -1,4 +1,3 @@
-const router = require('express').Router();
 const crypto = require('crypto');
 const Product = require('../models/Product');
 
