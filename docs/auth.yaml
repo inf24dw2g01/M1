@@ -1,0 +1,187 @@
+openapi: 3.0.0
+info:
+  title: Authentication API
+  version: 1.0.0
+  description: API for user registration, login and authentication
+
+
+paths:
+  /auth/register:
+    post:
+      tags:
+        - Authentication
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - email
+                - password
+              properties:
+                name:
+                  type: string
+                  description: User's full name
+                email:
+                  type: string
+                  format: email
+                  description: User's email address
+                password:
+                  type: string
+                  format: password
+                  description: User's password
+      responses:
+        201:
+          description: User successfully registered
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: User registered successfully
+                  token:
+                    type: string
+                    description: JWT authentication token
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      email:
+                        type: string
+                      role:
+                        type: string
+                        enum: [user, admin]
+        400:
+          description: Bad request - missing fields or user already exists
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        500:
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  details:
+                    type: string
+
+  /auth/login:
+    post:
+      tags:
+        - Authentication
+      summary: Log in an existing user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  format: password
+      responses:
+        200:
+          description: User successfully logged in
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    description: JWT authentication token
+        400:
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        500:
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+  /auth/google:
+    get:
+      tags:
+        - Authentication
+      summary: Initiate Google OAuth login
+      description: Redirects the user to Google's authentication page
+      responses:
+        302:
+          description: Redirect to Google authentication
+
+  /auth/google/callback:
+    get:
+      tags:
+        - Authentication
+      summary: Google OAuth callback endpoint
+      description: Handles the response from Google after user authentication
+      responses:
+        200:
+          description: Authentication successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    description: JWT authentication token
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      email:
+                        type: string
+        302:
+          description: Redirect after authentication
+        401:
+          description: Authentication failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

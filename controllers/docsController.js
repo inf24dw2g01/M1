@@ -11,7 +11,21 @@ const swaggerDefinition = {
     contact: { name: "Inf24dw2g01" },
     },
     servers: [ {url: "http://localhost:" + port,},],
-}
+    tags: [
+        {
+          name: "Authentication",
+          description: "User authentication and registration"
+        },
+        {
+          name: "Products",
+          description: "Product management operations"
+        },
+        {
+          name: "Orders",
+          description: "Order processing and management"
+        }
+      ]
+};
 
 const options = {
     swaggerDefinition,

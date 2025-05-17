@@ -1,7 +1,4 @@
-const Order = require('../models/Order')
-const OrderItem = require('../models/OrderItem')
-const Product = require('../models/Product')
-const sequelize = require('../config/database') // Adjust the path as necessary
+const { Order, OrderItem, Product, sequelize } = require('../models');
 
 exports.addOrder = async (req, res) => {
     // Start a transaction to ensure all-or-nothing database changes
@@ -209,3 +206,88 @@ exports.updateOrder = async (req, res) => {
     }
 };
 
+exports.getOrder = async (req, res) => {
+    try {
+        const { id, role } = req.user;
+        const orderId = req.params.id;
+
+        // Find the specific order with nested includes
+        const order = await Order.findByPk(orderId, {
+            include: [{
+                model: OrderItem,
+                include: [Product]
+            }],
+        });
+
+        if (!order) {
+            return res.status(404).json({ message: 'Order not found' });
+        }
+
+        // Check if user is authorized to see this order
+        if (order.CustomerID !== id && role !== 'admin') {
+            return res.status(403).json({ message: 'You are not authorized to view this order' });
+        }
+
+        // Format the response
+        const formattedOrder = {
+            id: order.id,
+            date: order.date,
+            customerID: order.CustomerID,
+            items: order.OrderItems.map(item => ({
+                id: item.id,
+                productId: item.ProductId,
+                productName: item.Product ? item.Product.name : null,
+                quantity: item.quantity,
+                price: item.price
+            }))
+        };
+
+        res.status(200).json(formattedOrder);
+    }
+    catch (error) {
+        res.status(500).json({
+            message: 'Failed to fetch order',
+            error: error.message
+        });
+    }
+};
+
+exports.getAllOrders = async (req, res) => {
+    try {
+        const { id, role } = req.user;
+        
+        // If admin, get all orders, otherwise get only user's orders
+        const whereClause = role === 'admin' ? {} : { CustomerID: id };
+        
+        const orders = await Order.findAll({
+            where: whereClause,
+            include: [{
+                model: OrderItem,
+                include: [Product]
+            }],
+            order: [['date', 'DESC']] // Most recent orders first
+        });
+        
+        // Format the response
+        const formattedOrders = orders.map(order => ({
+            id: order.id,
+            date: order.date,
+            customerID: order.CustomerID,
+            items: order.OrderItems.map(item => ({
+                id: item.id,
+                productId: item.ProductId,
+                productName: item.Product ? item.Product.name : null,
+                quantity: item.quantity,
+                price: item.price
+            }))
+        }));
+        
+        res.status(200).json(formattedOrders);
+    }
+    catch (error) {
+        res.status(500).json({
+            message: 'Failed to fetch orders',
+            error: error.message
+        });
+    }
+}

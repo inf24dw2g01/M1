@@ -4,6 +4,8 @@ const app = express();
 const session = require('express-session');
 const passport = require('./config/passport');
 
+// Import models to initialize associations
+require('./models');
 
 app.use(session({
     secret: process.env.SESSION_SECRET,
@@ -23,10 +25,10 @@ app.use(passport.session());
 
 app.use('/auth', require('./routes/authRoute'));
 
-app.use('/api-docs',require('./routes/docsRoute'));
-
-app.use('/orders', require('./routes/orderRoute'));
+app.use('/api-docs',require('./routes/docsRoute'))
 
 app.use('/products', require('./routes/productsRoute'));
+
+app.use('/orders', require('./routes/orderRoute'));
 
 app.listen(3000, () => console.log('Server is running on port 3000'))

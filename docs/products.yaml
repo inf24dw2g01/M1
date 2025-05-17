@@ -4,10 +4,15 @@ info:
   version: 1.0.0
   description: API for managing products
 
+
 paths:
   /products:
     get:
+      tags:
+        - Products
       summary: Get all products
+      security:
+        - BearerAuth: []
       responses:
         200:
           description: A list of products
@@ -16,7 +21,16 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Product'
+                  $ref: "#/components/schemas/Product"
+        401:
+          description: Unauthorized - No valid token provided
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
         500:
           description: Server error
           content:
@@ -30,7 +44,11 @@ paths:
                     type: string
 
     post:
-      summary: Create a new product
+      tags:
+        - Products
+      summary: Create a new product (Admin only)
+      security:
+        - BearerAuth: []
       requestBody:
         required: true
         content:
@@ -59,7 +77,25 @@ paths:
                   message:
                     type: string
                   product:
-                    $ref: '#/components/schemas/Product'
+                    $ref: "#/components/schemas/Product"
+        401:
+          description: Unauthorized - No valid token provided
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        403:
+          description: Forbidden - Admin privileges required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
         422:
           description: Validation error
           content:
@@ -83,7 +119,11 @@ paths:
 
   /products/{id}:
     get:
+      tags:
+        - Products
       summary: Get a product by ID
+      security:
+        - BearerAuth: []
       parameters:
         - in: path
           name: id
@@ -96,7 +136,16 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Product'
+                $ref: "#/components/schemas/Product"
+        401:
+          description: Unauthorized - No valid token provided
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
         404:
           description: Product not found
           content:
@@ -115,9 +164,13 @@ paths:
                 properties:
                   error:
                     type: string
-                    
+
     put:
-      summary: Update a product by ID
+      tags:
+        - Products
+      summary: Update a product by ID (Admin only)
+      security:
+        - BearerAuth: []
       parameters:
         - in: path
           name: id
@@ -156,6 +209,24 @@ paths:
                 properties:
                   message:
                     type: string
+        401:
+          description: Unauthorized - No valid token provided
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        403:
+          description: Forbidden - Admin privileges required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
         404:
           description: Product not found
           content:
@@ -176,9 +247,13 @@ paths:
                     type: string
                   details:
                     type: string
-                    
+
     delete:
-      summary: Delete a product by ID
+      tags:
+        - Products
+      summary: Delete a product by ID (Admin only)
+      security:
+        - BearerAuth: []
       parameters:
         - in: path
           name: id
@@ -188,6 +263,24 @@ paths:
       responses:
         200:
           description: Product deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        401:
+          description: Unauthorized - No valid token provided
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        403:
+          description: Forbidden - Admin privileges required
           content:
             application/json:
               schema:
@@ -233,3 +326,9 @@ components:
         updatedAt:
           type: string
           format: date-time
+
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
