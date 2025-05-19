@@ -1,0 +1,55 @@
+services:
+  app:
+    build: .
+    image: inf24dw2g01/web2tasks-app:latest
+    command: ["/wait-for-it.sh", "mysql:3306", "--", "node", "index.js"]
+    container_name: M1_node_app
+    restart: unless-stopped
+    environment:
+      DB_HOST: mysql
+      DB_NAME: ${DB_NAME:-ShopDB}
+      SESSION_SECRET: ${SESSION_SECRET}
+      JWT_SECRET: ${JWT_SECRET}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpassword}
+      PORT: 3000
+    depends_on:
+      mysql:
+        condition: service_healthy
+    ports:
+      - "3000:3000"
+    networks:
+      - app_network
+    volumes:
+      - ./src:/app
+      - /app/node_modules
+
+  mysql:
+    build:
+      context: .
+      dockerfile: Dockerfile.mysql
+    image: inf24dw2g01/web2tasks-mysql:latest
+    container_name: mysql_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpassword}
+      MYSQL_DATABASE: ${DB_NAME:-ShopDB}
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - app_network
+
+networks:
+  app_network:
+
+volumes:
+  mysql-data:
+

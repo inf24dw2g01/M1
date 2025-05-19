@@ -1,0 +1,7 @@
+FROM mysql:8.0
+
+# Copy initialization scripts to the special entrypoint directory
+COPY mysql/init.sql /docker-entrypoint-initdb.d/
+
+# Default environment variables if needed
+ENV MYSQL_DATABASE=ShopDB
