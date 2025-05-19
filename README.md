@@ -57,7 +57,6 @@ docker-compose down -v
 The following environment variables can be configured in `.env`:
 
 - `DB_NAME`: MySQL database name
-- `DB_HOST`: localhost
 - `MYSQL_ROOT_PASSWORD`: MySQL root password
 - `SESSION_SECRET`: Secret key for session management
 - `JWT_SECRET`: Secret key for JWT authentication
