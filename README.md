@@ -51,4 +51,4 @@ This API ensures access control and efficient management of store operations.
 ## Group 01
 * Pedro Miguel Soares Venda [PedroVenda](https://github.com/PedroVenda27),
 * Ephraim Chukwuwike Gibson [Ephraim Gibson](https://github.com/EphraimGibson.), 
-* Carolina Barbosa Fernandes [Carolina Fernandes](hhttps://github.com/Carolinafbar), 
+* Carolina Barbosa Fernandes [Carolina Fernandes](https://github.com/Carolinafbar), 
