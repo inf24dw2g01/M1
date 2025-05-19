@@ -6,6 +6,7 @@ const passport = require('./config/passport');
 
 // Import models to initialize associations
 require('./models');
+port = process.env.PORT;
 
 app.use(session({
     secret: process.env.SESSION_SECRET,
@@ -17,6 +18,9 @@ app.use(session({
     }
   }));
 
+  sequelize.sync().then(() => {
+    app.listen(port, () => console.log('Server running'));
+  });
 
 app.use(express.json());
 app.use(passport.initialize());

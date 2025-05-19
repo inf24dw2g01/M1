@@ -1,0 +1,38 @@
+services:
+  app:
+    build: .
+    command: ["/wait-for-it.sh", "mysql:3306", "--", "node", "index.js"]
+    container_name: M1_node_app
+    environment:
+      DB_HOST: mysql
+      DB_NAME: ${DB_NAME}
+      SESSION_SECRET: ${SESSION_SECRET}
+      JWT_SECRET: ${JWT_SECRET}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpassword}
+      PORT: 3000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mysql
+  
+    volumes:
+      - ./src:/app
+      - /app/node_modules
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpassword}
+      MYSQL_DATABASE: ${DB_NAME}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+
+volumes:
+  mysql-data:
+
