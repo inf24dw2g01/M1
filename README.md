@@ -1,64 +1,54 @@
 # Shop API
 
-A RESTful API for managing products, users, and orders with authentication.
+Repository to host the project developed for the subject Web Development II, 2nd year at University of Maia. Developed by Group 01:  [PedroVenda](https://github.com/PedroVenda27), [Ephraim Gibson](https://github.com/EphraimGibson.), [Carolina Fernandes](hhttps://github.com/Carolinafbar), 
 
-## Docker Setup
+## Short theme description
 
-This project includes Docker configuration for both the Node.js application and MySQL database.
+API to manage an online store with users, products, and orders.
+Access is restricted to authenticated users, who can be admins or regular users.
+Admins manage products and orders, while regular users can only create and view their own orders.
+This API ensures access control and efficient management of store operations.
 
-### Prerequisites
+## Repository organization
 
-- Docker
-- Docker Compose
+* **Source code** is in the [src folder](src/).
+* Report chapters are in [doc folder](doc/).
+* Initial [OpenApi document](api/openapi.yaml)
 
-### Running with Docker Compose
+## Gallery
 
-1. Copy the environment variables template:
+![image](https://github.com/user-attachments/assets/27f82118-e6ff-4a85-a314-e9e8e577712e)
 
-   ```
-   cp .env.example .env
 
-   fill in desired values for .env
-   ```
+## Technologies
 
-2. Start the containers:
+ * XML: [Documentação oficial](https://www.w3.org/XML/)
+ * Node.js: [Documentação oficial](https://nodejs.org/en/)
+ * MySQL: [Documentação oficial](https://www.mysql.com/)
+ * Docker: [Documentação oficial](https://www.docker.com/)
+ * Postman: [Documentação oficial](https://www.postman.com/)
+ * Markdown: [Documentação oficial](https://www.w3schools.io/file/markdown-introduction/)
+ * OAUTH2 Authorization - Google [Documentação oficial](https://developers.google.com/identity/protocols/oauth2?hl=pt-br)
 
-   ```
-   docker-compose up -d
-   ```
+### Frameworks and Libraries
 
-3. The API will be available at:
+* Docker: [Documentação oficial](https://www.docker.com/)
+* Node.js: [Documentação oficial](https://nodejs.org/en/)
+* Express [Documentação oficial](https://expressjs.com/)
 
-   ```
-   http://localhost:3000
-   ```
 
-4. API Documentation can be accessed at:
-   ```
-   http://localhost:3000/api-docs
-   ```
+## Report
 
-### Stopping the containers
+### Project presentation
+* Chapter 1: [Project presentation](doc/c1.md)
+### Resources
+* Chapter 2: [Resources](doc/c2.md)
+### Product
+* Chapter 3: [Product](doc/c3.md)
+### Presentation
+* Chapter 4: [Presentation](doc/c4.md)
 
-```
-docker-compose down
-```
-
-### Data Persistence
-
-MySQL data is persisted in a Docker volume named `mysql-data`. To completely reset the database:
-
-```
-docker-compose down -v
-```
-
-## Environment Variables
-
-The following environment variables can be configured in `.env`:
-
-- `DB_NAME`: MySQL database name
-- `MYSQL_ROOT_PASSWORD`: MySQL root password
-- `SESSION_SECRET`: Secret key for session management
-- `JWT_SECRET`: Secret key for JWT authentication
-- `GOOGLE_CLIENT_ID`: Client_ID for google authentication
-- `GOOGLE_CLIENT_SECRET`: Secret Key for google web client
+## Group 01
+* Pedro Miguel Soares Venda [PedroVenda](https://github.com/PedroVenda27),
+* Ephraim Chukwuwike Gibson [Ephraim Gibson](https://github.com/EphraimGibson.), 
+* Carolina Barbosa Fernandes [Carolina Fernandes](hhttps://github.com/Carolinafbar), 
