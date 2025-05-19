@@ -1,156 +1,231 @@
-# API Documentation
+#C3 : Product (Development Instalation And Usage)
+
+---
+
+## Docker Setup
+
+This project includes Docker configuration for both the Node.js application and MySQL database.
+
+### Prerequisites
+
+- Docker  
+- Docker Compose
+
+### Running with Docker Compose
+
+1. Copy the environment variables template:
+
+   ```bash
+   cp .env.example .env
+   # Fill in desired values for .env
+   ```
+
+2. Start the containers:
+
+   ```bash
+   docker-compose up -d
+   ```
+
+3. The API will be available at:
+
+   ```
+   http://localhost:3000
+   ```
+
+4. API Documentation can be accessed at:
+
+   ```
+   http://localhost:3000/api-docs
+   ```
+
+### Stopping the Containers
+
+```bash
+docker-compose down
+```
+
+### Data Persistence
+
+MySQL data is persisted in a Docker volume named `mysql-data`. To completely reset the database:
+
+```bash
+docker-compose down -v
+```
+
+---
+
+## Environment Variables
+
+Configure these in `.env`:
+
+| Variable               | Description                          |
+|------------------------|------------------------------------|
+| `DB_NAME`              | MySQL database name                 |
+| `MYSQL_ROOT_PASSWORD`   | MySQL root password                 |
+| `SESSION_SECRET`       | Secret key for session management   |
+| `JWT_SECRET`           | Secret key for JWT authentication   |
+| `GOOGLE_CLIENT_ID`     | Client ID for Google OAuth           |
+| `GOOGLE_CLIENT_SECRET` | Client Secret for Google OAuth       |
+
+---
 
 ## Authentication System
 
-The API uses JWT (JSON Web Token) for authentication. There are two levels of access:
+The API uses JWT (JSON Web Token) for authentication with two access levels:
 
-- **Regular Users**: Can access their own data
-- **Admin Users**: Have additional privileges to manage all users and products
+- **Regular Users:** Access to their own data  
+- **Admin Users:** Full privileges to manage users and products
 
-### Default Credentials
+### Default Credentials (For Testing)
 
-For testing purposes, use these credentials:
+| User Type      | Email                        | Password     |
+|----------------|------------------------------|--------------|
+| Regular User   | Any valid email in Users table | `password123` |
+| Admin User     | Any valid admin email          | `admin123`    |
 
-- **Regular User**:
-  - Email: (use any valid email in Users table)
-  - Password: `password123`
-- **Admin User**:
-  - Email: (use any valid email in Users table with admin role)
-  - Password: `admin123`
+### Authentication Header
 
-### Authentication Headers
-
-For protected endpoints, include this header with your requests:
+Include in protected requests:
 
 ```
 Authorization: Bearer YOUR_JWT_TOKEN
 ```
 
-## Endpoints
+---
+
+## API Endpoints
 
 ### Authentication
 
 | Endpoint                | Method | Description                 | Auth Required | Admin Required |
-| ----------------------- | ------ | --------------------------- | ------------- | -------------- |
+|-------------------------|--------|-----------------------------|---------------|----------------|
 | `/auth/register`        | POST   | Register a new user         | No            | No             |
 | `/auth/login`           | POST   | Login and get JWT token     | No            | No             |
 | `/auth/google`          | GET    | Initiate Google OAuth login | No            | No             |
 | `/auth/google/callback` | GET    | Google OAuth callback URL   | No            | No             |
 
+---
+
 ### Users Management
 
 | Endpoint     | Method | Description             | Auth Required | Admin Required |
-| ------------ | ------ | ----------------------- | ------------- | -------------- |
+|--------------|--------|-------------------------|---------------|----------------|
 | `/users`     | GET    | Get all users           | Yes           | Yes            |
-| `/users/:id` | GET    | Get specific user by ID | Yes           | Yes            |
-| `/users/:id` | PUT    | Update user information | Yes           | No\*           |
+| `/users/:id` | GET    | Get user by ID          | Yes           | Yes            |
+| `/users/:id` | PUT    | Update user info        | Yes           | No*            |
 | `/users/:id` | DELETE | Delete a user           | Yes           | Yes            |
 
-\*Regular users can only update their own profile
+\*Regular users can update only their own profile.
+
+---
 
 ### Products
 
 | Endpoint        | Method | Description          | Auth Required | Admin Required |
-| --------------- | ------ | -------------------- | ------------- | -------------- |
+|-----------------|--------|----------------------|---------------|----------------|
 | `/products`     | GET    | Get all products     | Yes           | No             |
 | `/products/:id` | GET    | Get product by ID    | Yes           | No             |
-| `/products`     | POST   | Create a new product | Yes           | Yes            |
+| `/products`     | POST   | Create new product   | Yes           | Yes            |
 | `/products/:id` | PUT    | Update a product     | Yes           | Yes            |
 | `/products/:id` | DELETE | Delete a product     | Yes           | Yes            |
+
+---
 
 ### Orders
 
 | Endpoint             | Method | Description        | Auth Required | Admin Required |
-| -------------------- | ------ | ------------------ | ------------- | -------------- |
-| `/orders`            | GET    | Get all orders     | Yes           | No\*           |
-| `/orders/:id`        | GET    | Get order by ID    | Yes           | No\*           |
-| `/orders/add`        | POST   | Create a new order | Yes           | No             |
-| `/orders/update/:id` | PUT    | Update an order    | Yes           | No\*           |
-| `/orders/delete/:id` | DELETE | Delete an order    | Yes           | No\*           |
+|----------------------|--------|--------------------|---------------|----------------|
+| `/orders`            | GET    | Get all orders     | Yes           | No*            |
+| `/orders/:id`        | GET    | Get order by ID    | Yes           | No*            |
+| `/orders/add`        | POST   | Create new order   | Yes           | No             |
+| `/orders/update/:id` | PUT    | Update an order    | Yes           | No*            |
+| `/orders/delete/:id` | DELETE | Delete an order    | Yes           | No*            |
 
-\*Regular users can only access their own orders
+\*Regular users can access only their own orders.
+
+---
 
 ## Authentication Flow
 
-1. **Register or Login**:
+1. **Register or Login:**
 
-   - Use `/auth/register` to create a new account
-   - Use `/auth/login` to receive a JWT token
-   - Alternatively, use Google OAuth with `/auth/google`
+   - `/auth/register` to create a new account  
+   - `/auth/login` to receive JWT token  
+   - Or use Google OAuth via `/auth/google`
 
-2. **Use the JWT Token**:
+2. **Use the JWT Token:**
 
-   - Include the token in the Authorization header for all protected requests
+   - Include in Authorization header for all protected requests  
    - Format: `Authorization: Bearer YOUR_JWT_TOKEN`
 
-3. **Authorization Levels**:
-   - Regular users can manage their own orders and view products
-   - Admin users have full access to all endpoints, including user management and product CRUD operations
+3. **Authorization Levels:**
+
+   - Regular users manage their own orders and view products  
+   - Admin users have full access including user and product management
+
+---
 
 ## Error Responses
 
 | Status Code | Description                                               |
-| ----------- | --------------------------------------------------------- |
-| 401         | Unauthorized - No token provided or invalid token         |
-| 403         | Forbidden - Not enough privileges (admin rights required) |
-| 404         | Not Found - Resource doesn't exist                        |
-| 500         | Server Error                                              |
+|-------------|-----------------------------------------------------------|
+| 401         | Unauthorized - No or invalid token                        |
+| 403         | Forbidden - Insufficient privileges (admin required)     |
+| 404         | Not Found - Resource does not exist                       |
+| 500         | Internal Server Error                                     |
+
+---
 
 ## Database Structure
 
-The API interacts with the following database tables:
+### Tables
 
-- **Users**: User accounts and authentication information
-- **Products**: Product catalog information
-- **Orders**: Order header information linked to users
-- **OrderItems**: Individual items within an order linked to products
+- **Users:** Stores user accounts and authentication data  
+- **Products:** Catalog of products  
+- **Orders:** Order headers linked to users  
+- **OrderItems:** Items within each order linked to products
+
+---
 
 ## Data Relationships
 
-### Orders, OrderItems, and Products Relationships
+### Orders, OrderItems, and Products
 
-The system uses a common e-commerce data model with the following relationships:
+1. **Orders to OrderItems (One-to-Many):**
 
-1. **Orders to OrderItems (One-to-Many)**
+   - One order contains multiple order items  
+   - Each order item belongs to one order  
+   - Deleting an order cascades deletes its order items  
+   - `order_id` in `OrderItems` references `Orders.id`
 
-   - One Order can contain multiple OrderItems
-   - Each OrderItem belongs to exactly one Order
-   - When an Order is deleted, all its OrderItems are automatically deleted (CASCADE)
-   - The OrderId in the OrderItems table is a foreign key referencing the id in Orders table
+2. **OrderItems to Products (Many-to-One):**
 
-2. **OrderItems to Products (Many-to-One)**
+   - Multiple order items can reference the same product  
+   - Each order item refers to one product  
+   - `product_id` in `OrderItems` references `Products.id`
 
-   - Multiple OrderItems can reference the same Product
-   - Each OrderItem refers to exactly one Product
-   - The ProductId in OrderItems table is a foreign key referencing the id in Products table
-   - This relationship tracks which products were purchased in each order
+3. **Orders to Users (Many-to-One):**
 
-3. **Orders to Users (Many-to-One)**
-   - A User can have multiple Orders
-   - Each Order belongs to exactly one User (the customer)
-   - The CustomerID in Orders table is a foreign key referencing the id in Users table
+   - A user can place multiple orders  
+   - Each order belongs to one user (`customer_id` references `Users.id`)
 
-### Simple Example:
+### Example Workflow
 
-When a customer places an order:
+- A customer places an order → new record in `Orders` with their user ID  
+- For each product, an `OrderItem` record is created with order ID, product ID, quantity, and price at purchase  
 
-- One record is created in the Orders table with the customer's ID
-- For each product in their shopping cart, one record is created in the OrderItems table
-- Each OrderItem record contains:
-  - Which order it belongs to (OrderId)
-  - Which product was ordered (ProductId)
-  - The quantity ordered
-  - The price at time of purchase
+This design enables:  
+- Listing all orders for a user  
+- Displaying all items in an order  
+- Separating product info from orders
 
-This structure allows the system to:
-
-- Show a user all their orders
-- Display all items within a specific order
-- Maintain product information separately from orders
+---
 
 ## Notes
 
-- All authenticated endpoints require a valid JWT token
-- Admin-only endpoints require both authentication AND admin role
-- Regular users can only access and modify their own data
-- The token contains user information including the role (admin or user)
+- All authenticated endpoints require a valid JWT token  
+- Admin-only endpoints require admin role  
+- Regular users can access/modify only their own data  
+- JWT token payload includes user role info
+
+---
