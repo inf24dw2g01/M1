@@ -1,4 +1,4 @@
-const passport = require('passport');
+const passport = require('backend_M1/src/config/passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require('../models/User');
 

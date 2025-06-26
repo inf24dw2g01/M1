@@ -1,6 +1,6 @@
 services:
   app:
-    build: .
+    build: ..
     image: inf24dw2g01/web2tasks-app:latest
     command: ["/wait-for-it.sh", "mysql:3306", "--", "node", "index.js"]
     container_name: M1_node_app
@@ -27,7 +27,7 @@ services:
 
   mysql:
     build:
-      context: .
+      context: ..
       dockerfile: Dockerfile.mysql
     image: inf24dw2g01/web2tasks-mysql:latest
     container_name: mysql_db
