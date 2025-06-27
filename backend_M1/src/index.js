@@ -3,10 +3,13 @@ const sequelize = require('./config/database');
 const app = express();
 const session = require('express-session');
 const passport = require('./config/passport');
+const cors = require('cors');
 
-// Import models to initialize associations
+
 require('./models');
 port = process.env.PORT;
+
+app.use(cors());
 
 app.use(session({
     secret: process.env.SESSION_SECRET,
