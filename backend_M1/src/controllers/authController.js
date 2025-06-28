@@ -99,6 +99,5 @@ exports.googleCallback = (req, res) => {
     { expiresIn: '1h' }
   );
 
-  res.redirect(`http://localhost:3001/login/?token=${token}`);
-
+  res.redirect(`${process.env.FRONT_END_REDIRECT_URL}/?token=${token}`);
 };

@@ -14,6 +14,7 @@ services:
       GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpassword}
       GOOGLE_CALLBACK_URL: ${GOOGLE_CALLBACK_URL}
+      FRONT_END_REDIRECT_URL: ${FRONT_END_REDIRECT_URL:-http://localhost:4830/login}
       PORT: 3000
     depends_on:
       mysql:
