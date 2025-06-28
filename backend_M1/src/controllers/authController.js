@@ -25,6 +25,7 @@ exports.login = async (req, res) => {
     const payload = {
       id: user.id,
       email: user.email,
+      name: user.name,
       role: user.role
     };
     
@@ -66,7 +67,7 @@ exports.register = async (req, res) => {
 
     // Create JWT token
     const token = jwt.sign(
-      { id: user.id, email: user.email, role: user.role },
+      { id: user.id, email: user.email, name: user.name, role: user.role },
       process.env.JWT_SECRET,
       { expiresIn: '1h' }
     );
@@ -93,13 +94,11 @@ exports.googleCallback = (req, res) => {
   
   // Create JWT token
   const token = jwt.sign(
-    { id: user.id, email: user.email, role: user.role },
+    { id: user.id, name: user.name, email: user.email, role: user.role },
     process.env.JWT_SECRET,
     { expiresIn: '1h' }
   );
-  
-  // can redirect to the frontend with token
-  //res.redirect(`http://localhost:3000/auth-success?token=${token}`);
-  
-   res.json({ token, user: {id: user.id, name: user.name, email: user.email} });
+
+  res.redirect(`http://localhost:3001/login/?token=${token}`);
+
 };

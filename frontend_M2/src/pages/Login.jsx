@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import apiService from '../services/api';
@@ -45,6 +45,23 @@ export default function Login() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const token = params.get('token');
+    if (token) {
+      try {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        login(payload, token);
+        navigate('/', { replace: true });
+      } catch (err) {
+        console.error('Invalid Token:', err);
+        setError(err.message || 'Bad Login Attempt');
+      }
+    }
+    else
+    {console.error("error:" + token)}
+  }, [location.search]);
 
   return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-50 to-indigo-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -147,6 +164,24 @@ export default function Login() {
               </span>
             </div>
           </form>
+          <div className="mt-6 flex flex-col items-center">
+            <button
+              type="button"
+              onClick={() => window.location.href = 'http://localhost:3000/auth/google'}
+              className="w-full flex items-center justify-center py-3 px-4 border border-gray-300 rounded-md bg-white text-gray-700 font-medium shadow-sm hover:bg-gray-50 transition duration-150"
+            >
+              <svg className="h-5 w-5 mr-2" viewBox="0 0 48 48">
+                <g>
+                  <path fill="#4285F4" d="M24 9.5c3.54 0 6.7 1.22 9.19 3.22l6.85-6.85C36.64 2.36 30.74 0 24 0 14.82 0 6.73 5.48 2.69 13.44l7.98 6.2C12.13 13.13 17.62 9.5 24 9.5z"/>
+                  <path fill="#34A853" d="M46.1 24.55c0-1.64-.15-3.22-.42-4.74H24v9.01h12.42c-.54 2.9-2.18 5.36-4.65 7.01l7.19 5.59C43.98 37.36 46.1 31.41 46.1 24.55z"/>
+                  <path fill="#FBBC05" d="M10.67 28.65A14.5 14.5 0 019.5 24c0-1.62.28-3.19.77-4.65l-7.98-6.2A23.93 23.93 0 000 24c0 3.77.9 7.34 2.49 10.49l8.18-5.84z"/>
+                  <path fill="#EA4335" d="M24 48c6.48 0 11.93-2.14 15.9-5.81l-7.19-5.59c-2.01 1.35-4.59 2.15-8.71 2.15-6.38 0-11.87-3.63-14.33-8.9l-8.18 5.84C6.73 42.52 14.82 48 24 48z"/>
+                  <path fill="none" d="M0 0h48v48H0z"/>
+                </g>
+              </svg>
+              Sign in with Google
+            </button>
+          </div>
         </div>
       </div>
   );

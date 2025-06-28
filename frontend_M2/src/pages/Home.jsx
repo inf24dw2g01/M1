@@ -44,7 +44,6 @@ export default function Home() {
             </div>
           ) : (
             <div className="space-y-6">
-              <p className="text-lg text-gray-700 bg-blue-50 inline-block px-6 py-2 rounded-full shadow-sm">Join our community today!</p>
               <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
                 <Link
                   to="/register"
@@ -69,21 +68,18 @@ export default function Home() {
           )}
         </div>
 
-        <div className="mt-12 grid md:grid-cols-3 gap-8">
-          <div className="text-center p-8 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 transform hover:-translate-y-1 hover:scale-102 transition-transform duration-300">
-            <div className="text-5xl mb-6 bg-blue-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto text-blue-600">🛍️</div>
-            <h3 className="text-xl font-semibold mb-3 text-gray-800">Wide Selection</h3>
-            <p className="text-gray-600">Browse through our extensive catalog of products from various categories</p>
-          </div>
-          <div className="text-center p-8 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 transform hover:-translate-y-1 hover:scale-102 transition-transform duration-300">
-            <div className="text-5xl mb-6 bg-green-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto text-green-600">🔒</div>
-            <h3 className="text-xl font-semibold mb-3 text-gray-800">Secure Shopping</h3>
-            <p className="text-gray-600">Your data and transactions are always protected with state-of-the-art security</p>
-          </div>
-          <div className="text-center p-8 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 transform hover:-translate-y-1 hover:scale-102 transition-transform duration-300">
-            <div className="text-5xl mb-6 bg-purple-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto text-purple-600">🚚</div>
-            <h3 className="text-xl font-semibold mb-3 text-gray-800">Fast Delivery</h3>
-            <p className="text-gray-600">Get your orders delivered quickly and efficiently to your doorstep</p>
+        <div className="mt-12 grid md:grid-cols-3 gap-8 mx-auto">
+          <div className="col-span-3 flex justify-center gap-8">
+            <div className="text-center p-8 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 transform hover:-translate-y-1 hover:scale-102 transition-transform duration-300">
+              <div className="text-5xl mb-6 bg-blue-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto text-blue-600">🛍️</div>
+              <h3 className="text-xl font-semibold mb-3 text-gray-800">Wide Selection</h3>
+              <p className="text-gray-600">Browse through our extensive catalog of products from various categories</p>
+            </div>
+            <div className="text-center p-8 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 transform hover:-translate-y-1 hover:scale-102 transition-transform duration-300">
+              <div className="text-5xl mb-6 bg-green-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto text-green-600">🔒</div>
+              <h3 className="text-xl font-semibold mb-3 text-gray-800">Secure Shopping</h3>
+              <p className="text-gray-600">Your data and transactions are always protected with state-of-the-art security</p>
+            </div>
           </div>
         </div>
       </div>
