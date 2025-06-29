@@ -18,12 +18,16 @@ This API ensures both access control and efficient management of store operation
 - **Report chapters** are in the [doc folder](doc/).
 
 ## Gallery
+![image](https://github.com/user-attachments/assets/93c1725e-8d88-4682-bf55-0ec72fa4caa2)
 
-*Image placeholder — Update with a real image when available*
+![image](https://github.com/user-attachments/assets/1ff8af96-c127-4815-ad49-b425337f4fcf)
 
-<!-- Example:
-![Shop API Screenshot](https://yourimagehost.com/shop_api_screenshot.png)
--->
+![image](https://github.com/user-attachments/assets/170ce6c4-4840-4f3d-a44e-f030549248f3)
+
+![image](https://github.com/user-attachments/assets/b33be298-d6ee-41eb-9ff7-53629d505652)
+
+![image](https://github.com/user-attachments/assets/1efcbc0b-d058-4552-9cae-028451bdfb39)
+
 
 ## Technologies and Frameworks
 
@@ -36,6 +40,7 @@ This API ensures both access control and efficient management of store operation
 - **OAuth2 Authorization (Google)**: [Official Documentation](https://developers.google.com/identity/protocols/oauth2?hl=pt-br)
 - **React**: [Official Documentation](https://react.dev/)
 - **Express.js**: [Official Documentation](https://expressjs.com/)
+- **TailwindCSS**: [Official Documentation](https://v2.tailwindcss.com/docs)
 
 ## Report
 
