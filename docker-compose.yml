@@ -1,7 +1,7 @@
 services:
   app:
     build: ./backend_M1
-    command: ["/wait-for-it.sh", "mysql:3306", "--", "node", "index.js"]
+    command: ["node", "index.js"]
     container_name: M1_node_app
     restart: unless-stopped
     environment:
@@ -57,6 +57,5 @@ services:
 
 networks:
   app_network:
-
 volumes:
   mysql-data:

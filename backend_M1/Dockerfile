@@ -14,10 +14,3 @@ COPY src ./
 
 # Expose the port the app runs on
 EXPOSE 3000
-
-# alpine apk
-RUN apk update && apk add --no-cache curl bash
-
-COPY wait-for-it.sh /wait-for-it.sh
-RUN chmod +x /wait-for-it.sh
-
