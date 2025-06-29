@@ -1,7 +1,6 @@
 services:
   app:
-    build: .
- #   image: inf24dw2g01/web2tasks-app:latest
+    build: ./backend_M1
     command: ["/wait-for-it.sh", "mysql:3306", "--", "node", "index.js"]
     container_name: M1_node_app
     restart: unless-stopped
@@ -24,14 +23,24 @@ services:
     networks:
       - app_network
     volumes:
-      - ./src:/app
+      - ./backend_M1/src:/app
       - /app/node_modules
+
+  frontend:
+    build: ./frontend_M2
+    container_name: M2_FE_Container
+    restart: unless-stopped
+    depends_on:
+      - app
+    ports:
+      - "4830:4830"
+    networks:
+      - app_network
 
   mysql:
     build:
-      context: .
+      context: ./backend_M1
       dockerfile: Dockerfile.mysql
- #   image: inf24dw2g01/web2tasks-mysql:latest
     container_name: mysql_db
     restart: unless-stopped
     environment:
@@ -54,4 +63,3 @@ networks:
 
 volumes:
   mysql-data:
-
