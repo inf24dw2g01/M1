@@ -22,9 +22,6 @@ services:
       - "3000:3000"
     networks:
       - app_network
-    volumes:
-      - ./backend_M1/src:/app
-      - /app/node_modules
 
   frontend:
     build: ./frontend_M2
