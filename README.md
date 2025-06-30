@@ -1,13 +1,13 @@
 # ShopInf
 
-This project demonstrates the practical application of the contents of the Web Development II course, showcasing access control implementation with secure authentication and efficient resource management in a real application.
+This project demonstrates the practical application of the contents of the Web Development II course, showcasing access control implementation with secure authentication and efficient resource management in a real application. ShopInf is a full-stack e-commerce web application for browsing products, managing carts, placing orders, and handling admin operations with user authentication.
+
 
 Group 01
 Pedro Miguel Soares Venda PedroVenda,
 Ephraim Chukwuwike Gibson Ephraim Gibson,
 Carolina Barbosa Fernandes Carolina Fernandes,
 
-A full-stack e-commerce web application for browsing products, managing carts, placing orders, and handling admin operations with user authentication.
 
 ## Introduction
 ShopInf is a modern, full-stack shop application featuring a React-based frontend and a Node.js/Express backend, connected to a MySQL database. The entire application is containerized using Docker, and orchestrated with Docker Compose. When you run `docker compose up`, three separate containers are started: one for the frontend, one for the backend API, and one for the SQL database. This setup ensures each service runs in its own isolated environment, making local development, testing, and deployment consistent and straightforward.
