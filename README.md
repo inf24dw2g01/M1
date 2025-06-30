@@ -1,12 +1,13 @@
 # ShopInf
 
-This project demonstrates the practical application of the contents of the Web Development II course, showcasing access control implementation with secure authentication and efficient resource management in a real application. ShopInf is a full-stack e-commerce web application for browsing products, managing carts, placing orders, and handling admin operations with user authentication.
+This project demonstrates the practical application of the contents of the Web Development II course, showcasing access control implementation with secure authentication and efficient resource management in a real application. It involves a full-stack e-commerce web application for browsing products, managing carts, placing orders, and handling admin operations with user authentication.
 
 
-Group 01
-Pedro Miguel Soares Venda PedroVenda,
-Ephraim Chukwuwike Gibson Ephraim Gibson,
-Carolina Barbosa Fernandes Carolina Fernandes,
+## Group _01_
+
+* Pedro Miguel Soares Venda [PedroVenda](https://github.com/PedroVenda27),
+* Ephraim Chukwuwike Gibson [Ephraim Gibson](https://github.com/EphraimGibson.), 
+* Carolina Barbosa Fernandes [Carolina Fernandes](https://github.com/Carolinafbar), 
 
 
 ## Introduction
