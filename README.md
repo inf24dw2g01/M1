@@ -1,5 +1,12 @@
 # ShopInf
 
+This project demonstrates the practical application of the contents of the Web Development II course, showcasing access control implementation with secure authentication and efficient resource management in a real application.
+
+Group 01
+Pedro Miguel Soares Venda PedroVenda,
+Ephraim Chukwuwike Gibson Ephraim Gibson,
+Carolina Barbosa Fernandes Carolina Fernandes,
+
 A full-stack e-commerce web application for browsing products, managing carts, placing orders, and handling admin operations with user authentication.
 
 ## Introduction
