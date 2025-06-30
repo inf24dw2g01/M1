@@ -6,7 +6,7 @@ This project demonstrates the practical application of the contents of the Web D
 ## Group _01_
 
 * Pedro Miguel Soares Venda [PedroVenda](https://github.com/PedroVenda27),
-* Ephraim Chukwuwike Gibson [Ephraim Gibson](https://github.com/EphraimGibson.), 
+* Ephraim Chukwuwike Gibson [Ephraim Gibson](https://github.com/EphraimGibson), 
 * Carolina Barbosa Fernandes [Carolina Fernandes](https://github.com/Carolinafbar), 
 
 
