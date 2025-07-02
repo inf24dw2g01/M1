@@ -25,7 +25,6 @@ export default function Products() {
 
   const handleAddToCart = (product) => {
     addToCart(product, 1);
-    // Show success message (you could add a toast notification here)
     alert('Product added to cart!');
   };
 
