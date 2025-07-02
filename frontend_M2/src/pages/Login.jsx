@@ -30,9 +30,7 @@ export default function Login() {
     setLoading(true);
 
     try {
-      console.log('Attempting login with:', formData);
       const response = await apiService.login(formData);
-      console.log('Login response:', response);
 
       const payload = JSON.parse(atob(response.token.split('.')[1]));
 
